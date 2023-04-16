@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Training } from 'src/app/model/training.model';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthenticateService } from 'src/app/services/authenticate.service';
 
 @Component({
   selector: 'app-training',
@@ -16,7 +17,7 @@ export class TrainingComponent implements OnInit {
   status : boolean = false;
 
   constructor(private formBuilder : FormBuilder, private apiService : ApiService, 
-    private router : Router, private route:ActivatedRoute) { 
+    private router : Router, private route:ActivatedRoute, public authService : AuthenticateService) { 
     this.training = new Training(0,"","",0,1);
     this.myForm = this.formBuilder.group({
         id   : [this.training.id],

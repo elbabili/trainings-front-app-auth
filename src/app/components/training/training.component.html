@@ -16,10 +16,12 @@
         <div class="form-group">
             <label class="control-label">Prix : </label>
             <input type="text" formControlName="price" class="form-control">
-        </div>            
+        </div>   
+        <div *ngIf="this.authService.isAdmin()">
             <button *ngIf="!status" type="submit" class="btn btn-primary">Ajouter en Base</button>
             <button *ngIf="status" type="submit" class="btn btn-primary">Mise à jour</button>
             <div class="text-danger"> {{error}}</div>     
+        </div>         
         </form>
     </div>
 </div>

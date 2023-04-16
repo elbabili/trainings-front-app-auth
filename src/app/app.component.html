@@ -13,6 +13,9 @@
     <li *ngIf="this.authService.isAdmin()" class="nav-item">
       <a class="nav-link" href="#" routerLink="/training/?">Ajouter formation</a>
     </li>
+    <li *ngIf="this.authService.isAdmin()" class="nav-item">
+      <a class="nav-link" href="#" routerLink="/admin">Administration</a>
+    </li>
   </ul>
   
   <ul class="navbar-nav ms-auto">

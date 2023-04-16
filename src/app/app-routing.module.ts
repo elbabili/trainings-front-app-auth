@@ -7,14 +7,21 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { OrderComponent } from './components/order/order.component';
 import { LoginoutComponent } from './components/loginout/loginout.component';
 import { TrainingComponent } from './components/training/training.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { AdminGuard } from './components/admin.guard';
 
-const routes: Routes = [
+
+const routes : Routes = [
     { path : 'trainings', component : TrainingsComponent },
     { path : 'cart' , component : CartComponent },
     { path : 'order' , component : OrderComponent},
     { path : 'customer' , component : CustomerComponent},
     { path : 'login' , component : LoginoutComponent},
     { path : 'training/:id' , component : TrainingComponent},
+    { 
+      path : 'admin' , component : AdminComponent,
+      canActivate : [AdminGuard]
+    },
     { path : '' , redirectTo : 'trainings', pathMatch : 'full' },
     { path: '404', component: NotFoundComponent},
     { path: '**', redirectTo: '/404'}
