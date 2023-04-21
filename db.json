@@ -4,7 +4,7 @@
       "id": 3,
       "name": "Python",
       "description": "Formation Python/Django 10 jours",
-      "price": "1500",
+      "price": "1450",
       "quantity": 1
     },
     {
@@ -41,6 +41,18 @@
       "description": "DotNet & entityframework en 5 jours",
       "price": "2750",
       "quantity": 1
+    }
+  ],
+  "users":[
+    {
+      "email":"elbab@gmail.com",
+      "password":"1234",
+      "roles": ["ADMIN","USER"]
+    },
+   {
+      "email":"pierre@gmail.com",
+      "password":"123",
+      "roles": ["USER"]
     }
   ]
 }

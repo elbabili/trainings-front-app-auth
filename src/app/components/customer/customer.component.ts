@@ -12,6 +12,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class CustomerComponent implements OnInit {  
   myForm : FormGroup;
   customer : Customer;
+  error : string | undefined;
   constructor(public cartService : CartService, private router : Router, private formBuilder : FormBuilder) {  
      this.customer = this.cartService.getCustomer();
    /* this.myForm = new FormGroup({
@@ -26,7 +27,7 @@ export class CustomerComponent implements OnInit {
       firstName : [this.customer.firstName, Validators.required],
       address : [this.customer.address, [Validators.required,Validators.minLength(25)]],
       phone : [this.customer.phone, [Validators.required,Validators.maxLength(10)]],
-      email : [this.customer.email, [Validators.required,Validators.pattern('[a-z0-9.@]*')]]
+      email : [this.customer.email, [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     })
   }
 
@@ -37,6 +38,9 @@ export class CustomerComponent implements OnInit {
       this.cartService.saveCustomer(new Customer(form.value.name,form.value.firstName,
         form.value.address,form.value.phone,form.value.email));
       this.router.navigateByUrl('order');
+    }
+    else {
+      this.error = "vous n'avez pas saisi correctement les champs";
     }
   }
 }

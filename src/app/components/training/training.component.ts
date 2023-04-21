@@ -52,14 +52,18 @@ export class TrainingComponent implements OnInit {
             complete : () => this.router.navigateByUrl('trainings')
           })
     }
+    else this.error = 'pb de saisi';
   }  
 
   updateTraining(form : FormGroup){
+    if(form.valid) {
     this.apiService.putTraining({id :form.value.id , name:form.value.name , description:form.value.description 
       , price:form.value.price , quantity:1}).subscribe({
         next : (data) => console.log(data),  
         error : (err) => this.error = err.message,
         complete : () => this.router.navigateByUrl('trainings')
       })
+    }
+    else this.error = 'pb de saisi';
   }
 }

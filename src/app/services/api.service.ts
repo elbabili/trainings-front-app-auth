@@ -23,6 +23,10 @@ export class ApiService {
     return this.http.get<User[]>(environment.host + "/users");
   }
 
+  public getUserByEmail(email : string) {
+    return this.http.get<User[]>(environment.host + "/users?email=" + email);
+  }
+
   public postTraining(training : any){
     return this.http.post<Training>(environment.host+"/trainings" , training);
   }

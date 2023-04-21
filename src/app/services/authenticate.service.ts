@@ -6,10 +6,7 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class AuthenticateService {
-  private users = [
-    {email:'elbab@gmail.com'   , password:'1234' , roles:['ADMIN','USER']},
-    {email:'pierre@gmail.com'  , password:'123'  , roles:['USER']},    
-  ];
+  private users : User[] | undefined;
   userConnected : User = new User("","",[]);
 
   constructor(private apiService : ApiService) { }
@@ -23,23 +20,15 @@ export class AuthenticateService {
     return this.userConnected;
   }
 
-  login(email: string, password: string) {
-    let connected : boolean = false;
-    this.users.forEach( (user) => {
-        if((user.email == email) && (user.password == password)){
-          connected = true;
-          this.userConnected = user;
-          localStorage.setItem('user',btoa(JSON.stringify(user)));  //cryptage des données avant stockage en LS
-        }
-    });
-    return connected;
+  login(email: string) {
+    return this.apiService.getUserByEmail(email);
   }
 
   isConnected() {
     return localStorage.getItem('user') != null; 
   }
 
-  deconnected() {
+  disconnected() {
     localStorage.removeItem('user');
     this.userConnected = new User("","",[]);
   }
@@ -52,4 +41,8 @@ export class AuthenticateService {
     return false;
   }
 
+  setUser(user : User):any{
+    this.userConnected = user;
+    localStorage.setItem('user',btoa(JSON.stringify(user)));  //cryptage des données avant stockage en LS
+  }
 }
