@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from 'src/app/model/user.model';
 import { AuthenticateService } from 'src/app/services/authenticate.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-loginout',
@@ -19,7 +20,7 @@ export class LoginoutComponent implements OnInit {
     this.user = authService.getUser(); 
     this.connected = authService.isConnected();
     this.myForm = this.formBuilder.group({
-      email : [this.user.email, [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      email : [this.user.email, [Validators.required,Validators.pattern(environment.regExEmail)]],
       password : [this.user.password, [Validators.required]]
     })
   }

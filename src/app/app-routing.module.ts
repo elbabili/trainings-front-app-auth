@@ -8,16 +8,26 @@ import { OrderComponent } from './components/order/order.component';
 import { LoginoutComponent } from './components/loginout/loginout.component';
 import { TrainingComponent } from './components/training/training.component';
 import { AdminComponent } from './components/admin/admin.component';
-import { AdminGuard } from './components/admin.guard';
+import { AdminGuard } from './guards/admin.guard';
+import { UserGuard } from './guards/user.guard';
 
 
 const routes : Routes = [
     { path : 'trainings', component : TrainingsComponent },
     { path : 'cart' , component : CartComponent },
-    { path : 'order' , component : OrderComponent},
-    { path : 'customer' , component : CustomerComponent},
+    { 
+      path : 'order' , component : OrderComponent,
+      canActivate : [UserGuard]
+    },
+    { 
+      path : 'customer' , component : CustomerComponent,
+      canActivate : [UserGuard]
+    },
     { path : 'login' , component : LoginoutComponent},
-    { path : 'training/:id' , component : TrainingComponent},
+    { 
+      path : 'training/:id' , component : TrainingComponent,
+      canActivate : [UserGuard]
+    },
     { 
       path : 'admin' , component : AdminComponent,
       canActivate : [AdminGuard]

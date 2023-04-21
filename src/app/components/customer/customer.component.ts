@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Customer } from 'src/app/model/customer.model';
 import { CartService } from 'src/app/services/cart.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-customer',
@@ -27,7 +28,7 @@ export class CustomerComponent implements OnInit {
       firstName : [this.customer.firstName, Validators.required],
       address : [this.customer.address, [Validators.required,Validators.minLength(25)]],
       phone : [this.customer.phone, [Validators.required,Validators.maxLength(10)]],
-      email : [this.customer.email, [Validators.required,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
+      email : [this.customer.email, [Validators.required,Validators.pattern(environment.regExEmail)]]
     })
   }
 

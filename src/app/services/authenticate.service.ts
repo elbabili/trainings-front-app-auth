@@ -41,6 +41,14 @@ export class AuthenticateService {
     return false;
   }
 
+  isUser() {
+    let user = this.getUser();
+    if(user.roles.length > 0){
+      if(user.roles.indexOf('USER') > -1)  return true;
+    }
+    return false;
+  }
+
   setUser(user : User):any{
     this.userConnected = user;
     localStorage.setItem('user',btoa(JSON.stringify(user)));  //cryptage des données avant stockage en LS
