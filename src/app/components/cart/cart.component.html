@@ -1,6 +1,6 @@
 
 <div class="container">
-  <ng-container *ngIf="cart">
+  <ng-container *ngIf="!empty_cart else display_empty_cart">
         <table class="table table-sm">
           <thead>
             <tr>
@@ -25,4 +25,7 @@
         <button class="btn btn-success" (click)="onNewOrder()">Commander</button>    
         <div class="text-danger"> {{error}}</div>
   </ng-container>
+  <ng-template #display_empty_cart>
+    <div> PANIER VIDE </div>
+  </ng-template>
 </div>

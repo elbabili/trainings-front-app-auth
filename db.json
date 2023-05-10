@@ -41,6 +41,13 @@
       "description": "DotNet & entityframework en 5 jours",
       "price": "2750",
       "quantity": 1
+    },
+    {
+      "id": 13,
+      "name": "titi",
+      "description": "bella fformation della trena",
+      "price": "150",
+      "quantity": 1
     }
   ],
   "users": [

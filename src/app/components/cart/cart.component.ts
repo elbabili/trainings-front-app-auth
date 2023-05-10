@@ -11,19 +11,24 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartComponent implements OnInit {
   cart : Training[] | undefined;
+  empty_cart : boolean = false;
   amount : number = 0;
   error : string | undefined;
   constructor(private cartService : CartService , private router : Router, private authService : AuthenticateService) { }
 
   ngOnInit(): void {
-    this.cart = this.cartService.getCart();
     this.amount = this.cartService.getAmount();
+    this.initCart();
+  }
+
+  initCart(){
+    this.cart = this.cartService.getCart();
+    this.empty_cart = (this.cart.length > 0) ? false : true;
   }
 
   onRemoveFromCart(training : Training){
-    
     this.cartService.removeTraining(training);
-    this.cart = this.cartService.getCart();
+    this.initCart();
   }
 
   onNewOrder(){
