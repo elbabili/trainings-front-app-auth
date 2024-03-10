@@ -10,6 +10,12 @@ import { AuthenticateService } from 'src/app/services/authenticate.service';
   templateUrl: './trainings.component.html',
   styleUrls: ['./trainings.component.css']
 })
+
+/**
+ * Composant de gestion des formations permettant l'affichage et l'ajout dans le panier de formation
+ * En fonction de ses roles, l'utilisateur aura + ou - de droits (User ou Admin) dans l'application
+ * delors, il aura accès à des fonctionnalités spécifiques suplémentaires 
+ */
 export class TrainingsComponent implements OnInit {
   listTrainings : Training[] | undefined;
   error = null;
@@ -22,6 +28,10 @@ export class TrainingsComponent implements OnInit {
     this.getAllTrainings();
   }
 
+  /**
+   * Méthode qui renvoi à partir de l'Api toutes les formations accessibles
+   * en cas de problème avec l'api, un message d'erreur sera relayé et affiché
+   */
   getAllTrainings() {
     this.apiService.getTrainings().subscribe({
       next : (data) => this.listTrainings = data,
@@ -30,6 +40,10 @@ export class TrainingsComponent implements OnInit {
     })
   }
 
+  /**
+   * Méthode permettant à tous l'ajout d'une formation au panier en utilisant le service dédié
+   * @param training 
+   */
   onAddToCart(training:Training){
     if(training.quantity > 0) {
      this.cartService.addTraining(training);
@@ -37,6 +51,11 @@ export class TrainingsComponent implements OnInit {
     }
   }
 
+  /**
+   * Méthode permettant uniquement à l'Admin de supprimer une formation de l'ensemble des formations
+   * Une fois la formation supprimée dans l'api, la liste des formations est raffraichie
+   * @param training 
+   */
   onDeleteTraining(training : Training){
     if(confirm("vous êtes sur de vouloir supprimer cette formation")) {
       this.apiService.delTraining(training).subscribe({
@@ -47,6 +66,11 @@ export class TrainingsComponent implements OnInit {
     }
   }
 
+  /**
+   * Méthode permettant uniquement à l'Admin de mettre à jour une formation de l'ensemble des formations
+   * En renvoyant ici vers le composant dédié à la mise à jour
+   * @param training 
+   */
   onUpdateTraining(training : Training){
     this.router.navigateByUrl('training/' + training.id);
   }

@@ -10,19 +10,17 @@ import { environment } from 'src/environments/environment';
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.css']
 })
+
+/**
+ * Composant de gestion d'un client en le récupérant directement s'il existe déjà via le service
+ * le tout pouvant être modifié à l'aide d'un formulaire
+ */
 export class CustomerComponent implements OnInit {  
   myForm : FormGroup;
   customer : Customer;
   error : string | undefined;
   constructor(public cartService : CartService, private router : Router, private formBuilder : FormBuilder) {  
-     this.customer = this.cartService.getCustomer();
-   /* this.myForm = new FormGroup({
-      name : new FormControl(this.customer.name),
-      firstName : new FormControl(this.customer.firstName),
-      address : new FormControl(this.customer.address),
-      phone : new FormControl(this.customer.phone),
-      email : new FormControl(this.customer.email)
-    }) */
+    this.customer = this.cartService.getCustomer();  
     this.myForm = this.formBuilder.group({
       name : [this.customer.name, Validators.required],
       firstName : [this.customer.firstName, Validators.required],
@@ -34,6 +32,12 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit(): void {  
   }
+
+  /**
+   * Méthode de validation du formulaire client en le sauvegardant dans le service
+   * avant de renvoyer vers le composant de gestion du récap de la commande
+   * @param form 
+   */
   onSaveCustomer(form : FormGroup){
     if(form.valid){
       this.cartService.saveCustomer(new Customer(form.value.name,form.value.firstName,

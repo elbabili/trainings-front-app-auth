@@ -10,6 +10,10 @@ import { environment } from 'src/environments/environment';
   templateUrl: './loginout.component.html',
   styleUrls: ['./loginout.component.css']
 })
+
+/**
+ * Composant de gestion de l'authentification d'un utilisateur
+ */
 export class LoginoutComponent implements OnInit {
   myForm : FormGroup;
   user : User | undefined;
@@ -29,16 +33,21 @@ export class LoginoutComponent implements OnInit {
     this.user = new User("","",[]);
   }
 
+  /**
+   * Méthode de demande d'authentification à partir des credentials (login + pwd) saisis et comparer avec l'api 
+   * En cas de succès, la session de l'utilisateur reste jusqu'à la déconnexion
+   * @param form 
+   */
   onLogin(form : FormGroup){
     if(form.valid){
       this.authService.login(form.value.email).subscribe({
         next : (data) => {
             this.user = data[0];
-            if(this.user.email == form.value.email && this.user.password == form.value.password){
+            if((this.user.email == form.value.email) && (this.user.password == form.value.password)){
                 this.authService.setUser(this.user);
                 this.router.navigateByUrl('cart');
             }
-            else this.error = "Email or Password incorrecte"; 
+            else this.error = "Email or Password incorrecte";     //ToDo tester tous les cas
           },
         error : (err) => this.error = err.message,  //pb sur la requete
         complete : () => console.log("Welcome")
@@ -47,9 +56,15 @@ export class LoginoutComponent implements OnInit {
     else this.error = 'Erreur de saisie';
   }
 
+  /**
+   * ToDo Ajouter un nouvel utilisateur
+   */
   onAddUser(){
   }
 
+  /**
+   * Méthode de déconnexion d'un utilisateur
+   */
   disconnect(){
     this.authService.disconnected();
     this.connected = false;

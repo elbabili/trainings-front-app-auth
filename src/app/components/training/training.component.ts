@@ -10,6 +10,10 @@ import { AuthenticateService } from 'src/app/services/authenticate.service';
   templateUrl: './training.component.html',
   styleUrls: ['./training.component.css']
 })
+
+/**
+ * Composant de gestion d'une formation à ajouter en base ou à mettre à jour
+ */
 export class TrainingComponent implements OnInit {
   myForm : FormGroup;
   training : Training;
@@ -27,6 +31,10 @@ export class TrainingComponent implements OnInit {
     })
   }
 
+  /**
+   * La méthode d'initialisation permet ici de récupérer l'id en cas de mise à jour, afin de récupérer les données associées via l'api
+   * dans le cas contraire, il s'agit d'une création de formation 
+   */
   ngOnInit(): void {
     let id = this.route.snapshot.params['id'];
     if(id > 0) {
@@ -42,6 +50,10 @@ export class TrainingComponent implements OnInit {
     }
   }
 
+  /**
+   * Méthode d'ajout (ou de mise à jour) d'une nouvelle formation (en fonction du contexte d'appel : présence de l'id ?)
+   * @param form comprend le formulaire avec toutes les données saisies par l'utilisateur
+   */
   onAddTraining(form : FormGroup){
     if(form.valid){
       if(this.status) this.updateTraining(form);
@@ -55,6 +67,10 @@ export class TrainingComponent implements OnInit {
     else this.error = 'pb de saisi';
   }  
 
+  /**
+   * Méthode de mise à jour d'une nouvelle formation
+   * @param form comprend le formulaire avec toutes les données saisies par l'utilisateur
+   */
   updateTraining(form : FormGroup){
     if(form.valid) {
     this.apiService.putTraining({id :form.value.id , name:form.value.name , description:form.value.description 

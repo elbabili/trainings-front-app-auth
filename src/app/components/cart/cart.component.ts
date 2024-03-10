@@ -9,6 +9,10 @@ import { CartService } from 'src/app/services/cart.service';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
+
+/**
+ * Composant de gestion d'un panier permettant l'affichage du panier, la suppression éventuelle de formations et le passage à l'étape suivante
+ */
 export class CartComponent implements OnInit {
   cart : Training[] | undefined;
   empty_cart : boolean = false;
