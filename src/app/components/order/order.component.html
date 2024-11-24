@@ -50,3 +50,11 @@
       </div>
     </div>
 </div>
+
+<app-modal-order *ngIf="showModal"
+           [title]="modalTitle"
+           (close)="onModalClose()">
+           <p>{{ modalContent }}</p>
+           <p>Montant total : {{ modalData }}</p>
+</app-modal-order>
+

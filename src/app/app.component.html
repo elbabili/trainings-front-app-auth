@@ -5,11 +5,10 @@
       <a class="nav-link" href="#" routerLink="/trainings">Liste des Formations</a>
     </li>    
     <li class="nav-item">
-      <a class="nav-link" href="#" routerLink="/cart">Contenu du Panier</a>
-    </li> 
-    <li>
-      <a>[{{this.cartService.getSize()}}]</a>
-    </li>
+      <a 
+      class="nav-link" href="#" routerLink="/cart" >Contenu du Panier <span>[{{this.cartService.getSize()}}]</span>
+      </a>
+    </li>     
     <li *ngIf="this.authService.isAdmin()" class="nav-item">
       <a class="nav-link" href="#" routerLink="/training/?">Ajouter formation</a>
     </li>

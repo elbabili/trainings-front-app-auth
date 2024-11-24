@@ -1,5 +1,6 @@
 <div class="container">
     <div class="col-md-3">
+        <h2 class="text-center">Gestion formation</h2>
         <form [formGroup]="myForm" (ngSubmit)="onAddTraining(myForm)">
         <div *ngIf="myForm.value.id" class="form-group">
             <label class="control-label">Id : </label>

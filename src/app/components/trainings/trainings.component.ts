@@ -74,6 +74,18 @@ export class TrainingsComponent implements OnInit {
   onUpdateTraining(training : Training){
     this.router.navigateByUrl('training/' + training.id);
   }
+
+  /**
+   * Méthode qui empeche des saisies incorrectes sur la quantité de formation
+   * @param training la formation concerné
+   */
+  validateQuantity(training : Training) {
+    if (training.quantity < 1) {
+      training.quantity = 1;
+    } else if (training.quantity > 10) {
+      training.quantity = 10;
+    }
+  }
 }
 
 

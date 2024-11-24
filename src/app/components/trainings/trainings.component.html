@@ -12,7 +12,11 @@
                     <td>{{training.name}}</td>    
                     <td>{{training.description}}</td>
                     <td>{{training.price}}</td>
-                    <td> <input type="number" name="quantity" style="width: 60px" [(ngModel)]="training.quantity" min="1" max="10" > </td>
+                    <td> 
+                        <input type="number" name="quantity" style="width: 60px" 
+                        [(ngModel)]="training.quantity" min="1" max="10" maxlength="2" (input)="validateQuantity(training)" 
+                        [class.invalid]="training.quantity < 1 || training.quantity > 10" > 
+                    </td>
                     <td> 
                         <a class="btn btn-outline-primary btn-sm" (click)="onAddToCart(training)"> 
                             <i class="fa fa-shopping-cart"></i> Ajouter

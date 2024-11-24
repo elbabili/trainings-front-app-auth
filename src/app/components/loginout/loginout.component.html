@@ -16,9 +16,11 @@
                     <div class="text-danger"> {{error}}</div>     
                 </form>
             </div>
-            <div class="card-footer text-center">
-                <button class="btn btn-secondary" (click)="onAddUser()"> Nouveau Client </button>
-            </div>
+            <!-- <div *ngIf="this.authService.isAdmin()">
+                <div class="card-footer text-center">
+                    <button class="btn btn-secondary" (click)="onAddUser()"> Nouveau Client </button>
+                </div>
+            </div> -->
         </div>
         <ng-template #deconnect>
             <label style="margin-left:20px; margin-top:10px; margin-bottom: 10px;">login : {{this.authService.getUser().email}}</label> 

@@ -30,7 +30,7 @@ export class LoginoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = new User("","",[]);
+    this.user = new User(0,"","",[]);
   }
 
   /**
@@ -40,26 +40,36 @@ export class LoginoutComponent implements OnInit {
    */
   onLogin(form : FormGroup){
     if(form.valid){
-      this.authService.login(form.value.email).subscribe({
-        next : (data) => {
-            this.user = data[0];
-            if((this.user.email == form.value.email) && (this.user.password == form.value.password)){
-                this.authService.setUser(this.user);
-                this.router.navigateByUrl('cart');
-            }
-            else this.error = "Email or Password incorrecte";     //ToDo tester tous les cas
-          },
-        error : (err) => this.error = err.message,  //pb sur la requete
-        complete : () => console.log("Welcome")
-      })
+      try {
+        this.authService.login(form.value.email).subscribe({
+          next : (data) => {
+                  if(data && data.length>0) {
+                      this.user = data[0];
+                      if((this.user.email == form.value.email) && (this.user.password == form.value.password)){
+                          this.authService.setUser(this.user);
+                          this.router.navigate(['cart']);
+                      }
+                      else this.error = "Email or Password incorrecte";
+                  }
+                  else this.error = "Aucun user ne correspond !";
+            },
+          //error : (err) => this.error = err.message,
+          error : () => this.error = "Erreur API !",
+          complete : () => console.log("Welcome")
+        });
+      }
+      catch(exception){
+        this.error = "Erreur imprévue, Réessayer";
+      }
     }
-    else this.error = 'Erreur de saisie';
+    else this.error = 'Erreur de saisie du formulaire';
   }
 
   /**
    * ToDo Ajouter un nouvel utilisateur
    */
   onAddUser(){
+    
   }
 
   /**

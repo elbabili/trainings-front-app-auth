@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 
@@ -7,30 +7,26 @@ import { CartService } from 'src/app/services/cart.service';
   templateUrl: './order.component.html',
   styleUrls: ['./order.component.css']
 })
-export class OrderComponent implements OnInit,OnChanges,DoCheck,OnDestroy {
-  dateOrder : Date = new Date();
+export class OrderComponent implements OnInit {
+  dateOrder : Date = new Date();  
+  showModal = false;
+  modalTitle = 'Commande confirmée';
+  modalContent = 'Votre commande a bien été prise en compte';
+  modalData: any;
   constructor(public cartService : CartService, private router : Router) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-      console.log('ngOnChanges' + changes);
-  }
-
-  ngOnInit(): void {
-      console.log('ngOnInit')
-  }
-
-  ngDoCheck(): void {
-      console.log('ngDoCheck')
-  }
-
-  ngOnDestroy(): void {
-      console.log('ngOnDestroy')
-  }
+  ngOnInit(): void {  
+  } 
 
   onOrder(){
-    if(confirm("Aujourd'hui c'est gratuit, merci de votre visite :)")){
-      this.cartService.clear();
-      this.router.navigateByUrl('');
-    }
+    this.modalData = this.cartService.getAmount();
+    this.showModal = true;    
+  }
+
+  onModalClose(): void {
+    this.showModal = false;
+    this.cartService.clear();
+    this.router.navigateByUrl('');  
+    console.log("Back to the future !");  
   }
 }

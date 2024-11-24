@@ -2,3 +2,7 @@
     margin: 0 auto;
     width: 80%;
 }
+
+.invalid {
+    border: 2px solid red;
+  }

@@ -7,7 +7,7 @@ import { ApiService } from './api.service';
 })
 export class AuthenticateService {
   private users : User[] | undefined;
-  userConnected : User = new User("","",[]);
+  userConnected : User = new User(0,"","",[]);
 
   constructor(private apiService : ApiService) { }
 
@@ -30,7 +30,7 @@ export class AuthenticateService {
 
   disconnected() {
     localStorage.removeItem('user');
-    this.userConnected = new User("","",[]);
+    this.userConnected = new User(0,"","",[]);
   }
 
   isAdmin() {
@@ -50,6 +50,7 @@ export class AuthenticateService {
   }
 
   setUser(user : User):any{
+    user.password = '';
     this.userConnected = user;
     localStorage.setItem('user',btoa(JSON.stringify(user)));  //cryptage des données avant stockage en LS
   }
