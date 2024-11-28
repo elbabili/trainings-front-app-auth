@@ -36,7 +36,7 @@ export class LoginoutComponent implements OnInit {
   /**
    * Méthode de demande d'authentification à partir des credentials (login + pwd) saisis et comparer avec l'api 
    * En cas de succès, la session de l'utilisateur reste jusqu'à la déconnexion
-   * @param form 
+   * @param form
    */
   onLogin(form : FormGroup){
     if(form.valid){
@@ -44,7 +44,7 @@ export class LoginoutComponent implements OnInit {
         this.authService.login(form.value.email).subscribe({
           next : (data) => {
                   if(data && data.length>0) {
-                      this.user = data[0];
+                      this.user = data[0];                      
                       if((this.user.email == form.value.email) && (this.user.password == form.value.password)){
                           this.authService.setUser(this.user);
                           this.router.navigate(['cart']);

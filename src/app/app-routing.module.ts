@@ -26,7 +26,7 @@ const routes : Routes = [
     { path : 'login' , component : LoginoutComponent},
     { 
       path : 'training/:id' , component : TrainingComponent,
-      canActivate : [UserGuard]
+      canActivate : [AdminGuard]
     },
     { 
       path : 'admin' , component : AdminComponent,

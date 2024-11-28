@@ -61,24 +61,14 @@
         "USER"
       ],
       "id": 3
-    },
+    },    
     {
-      "email": "aymene@gmail.com",
+      "id": 8,
+      "email": "nat@gmail.com",
       "password": "123456",
-      "confirmPassword": "123456",
-      "id": 4
-    },
-    {
-      "email": "david@gmail.com",
-      "password": "123456",
-      "confirmPassword": "123456",
-      "id": 5
-    },
-    {
-      "email": "toto@gmail.com",
-      "password": "123456",
-      "confirmPassword": "123456",
-      "id": 6
+      "roles": [
+        "USER"
+      ]
     }
   ]
 }

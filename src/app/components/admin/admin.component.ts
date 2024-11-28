@@ -13,6 +13,7 @@ export class AdminComponent {
   myForm: FormGroup;
   error: string = '';
   successMessage: string ='';
+  user : User | undefined;
 
   constructor(private fb: FormBuilder, private apiService : ApiService) {
     this.myForm = this.fb.group({        
@@ -42,8 +43,8 @@ export class AdminComponent {
 
   onAddUser(form: FormGroup) {
     if (form.valid) {
-      user : new User(0,form.value.email,form.value.password,['USER']);
-      this.apiService.postUser(form.value).subscribe({
+      this.user = new User(0,form.value.email,form.value.password,['USER']);
+      this.apiService.postUser(this.user).subscribe({
         next : (data) => { this.successMessage = 'Utilisateur créé avec succès !'; 
                            console.log(data);
                           },

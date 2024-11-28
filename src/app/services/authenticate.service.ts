@@ -6,16 +6,22 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class AuthenticateService {
-  private users : User[] | undefined;
   userConnected : User = new User(0,"","",[]);
 
   constructor(private apiService : ApiService) { }
 
-  //renvoi l'utilisateur en locale storage s'il existe sinon un client vide
+  /**
+   * Méthode qui renvoi un utilisateur en locale storage, s'il est trouvé c'est qu'il est connecté !
+   * @returns user s'il existe
+   */
   getUser(){
     let user = localStorage.getItem('user');    
-    if(user){ //si j'ai déjà un utilisateur en LS, c'est que je suis connecté
-      this.userConnected = JSON.parse(atob(user));    // décryptage
+    if(user){ 
+      try {
+        this.userConnected = JSON.parse(atob(user));
+      } catch (e) {
+        console.error("Erreur lors du décryptage ou parsing :", e);
+      }
     }
     return this.userConnected;
   }
