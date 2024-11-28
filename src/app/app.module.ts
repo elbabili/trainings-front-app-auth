@@ -14,6 +14,7 @@ import { TrainingComponent } from './components/training/training.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AdminComponent } from './components/admin/admin.component';
 import { ModalOrderComponent } from './components/order/modal-order/modal-order.component';
+import { CartIconComponent } from './components/cart-icon/cart-icon.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ModalOrderComponent } from './components/order/modal-order/modal-order.
     LoginoutComponent,
     TrainingComponent,
     AdminComponent,
-    ModalOrderComponent
+    ModalOrderComponent,
+    CartIconComponent
   ],
   imports: [
     BrowserModule,

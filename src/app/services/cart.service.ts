@@ -1,25 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Customer } from '../model/customer.model';
 import { Training } from '../model/training.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
   private cart : Map<number,Training>;
+  private cartItems = new BehaviorSubject<number>(0);   // création d'un osbervable
+  cartItems$ = this.cartItems.asObservable();           // Observable exposé
 
   constructor() {     
-    // au démarrage du service, je récupère le contenu du local storage : command en cours
     let cart = localStorage.getItem('cart');
-    if(cart){  // le panier existe déjà
+    if(cart){ 
       this.cart = new Map(JSON.parse(cart));
-    } // sinon il faut le créer
+    }
     else this.cart = new Map<number,Training>();
+
+    this.cartItems.next(this.cart.size);          // Observable alimenté
   }
 
   addTraining(training: Training) { 
     this.cart.set(training.id,training);
-    this.saveCart(); //à chaque fois que j'ajoute un élément au panier, je met à jour le local storage
+    this.saveCart(); 
+    this.cartItems.next(this.cart.size);          // Mise à jour de l'observable
   }
 
   saveCustomer(customer : Customer) {
@@ -33,6 +38,7 @@ export class CartService {
   removeTraining(training: Training) {
     this.cart.delete(training.id);
     this.saveCart();
+    this.cartItems.next(this.cart.size);          // Mise à jour de l'observable
   }
 
   getCart() {
@@ -60,5 +66,6 @@ export class CartService {
   clear() {
     this.cart.clear();
     localStorage.removeItem('cart');
+    this.cartItems.next(0);
   }
 }
